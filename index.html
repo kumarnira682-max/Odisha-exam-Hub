@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odisha Exam Hub - ସଠିକ ପ୍ରସ୍ତୁତି ସଠିକ ସଫଳତା</title>
+    
+    <style>
+        :root {
+            --primary: #5c3be7;
+            --secondary: #00e5ff;
+            --bg-dark: #0a0f26;
+            --bg-light: #f7f9fc;
+            --card-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #121214;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            background: var(--bg-light);
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* App Blocked/Blurred state when not logged in */
+        .app-blur {
+            filter: blur(5px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* ----------------- AUTH (LOGIN/REGISTER) OVERLAY ----------------- */
+        .auth-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 15, 38, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: white;
+            width: 100%;
+            border-radius: 24px;
+            padding: 30px 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .auth-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0b112c;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .auth-logo span { color: #f1b814; }
+
+        .auth-subtitle {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .name-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+            text-align: left;
+            flex: 1;
+        }
+
+        .input-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .auth-input:focus {
+            border-color: var(--primary);
+            background: #f8fafc;
+        }
+
+        .auth-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 13px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(92, 59, 231, 0.3);
+            margin-top: 5px;
+        }
+
+        .auth-btn:active { transform: scale(0.98); }
+
+        .switch-text {
+            font-size: 12px;
+            color: #64748b;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .switch-text span {
+            color: var(--primary);
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* OTP Section Hidden by default */
+        .otp-box {
+            display: none;
+            border-top: 1px dashed #e2e8f0;
+            margin-top: 15px;
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        /* ----------------- MAIN APP SECTIONS ----------------- */
+        .hero-banner {
+            background: linear-gradient(135deg, #0b112c 0%, #151d4a 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: left;
+            position: relative;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .logo { font-size: 20px; font-weight: bold; color: white; }
+        .logo span { color: #f1b814; }
+
+        .user-badge {
+            background: rgba(255,255,255,0.1);
+            color: #00e5ff;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Profile Style inside Hero Section */
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .profile-pic-box { position: relative; width: 55px; height: 55px; }
+        .profile-img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #00e5ff; object-fit: cover; background: #fff; }
+        .upload-icon-btn { position: absolute; bottom: -2px; right: -2px; background: #5c3be7; color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 12px; font-weight: bold; border: 1px solid white; }
+        .profile-details h4 { font-size: 15px; font-weight: bold; color: white; }
+        .profile-details p { font-size: 11px; color: #94a3b8; }
+
+        .hero-tag { color: #f1b814; font-size: 13px; margin-bottom: 8px; font-weight: 600; }
+        .hero-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 15px; color: #fff; }
+        .hero-sub { font-size: 12px; color: #94a3b8; margin-bottom: 25px; line-height: 1.5; }
+
+        .banner-buttons { display: flex; gap: 10px; margin-bottom: 25px; }
+        .btn-main {
+            background: var(--primary); color: white; border: none; flex: 1;
+            padding: 12px; border-radius: 25px; font-size: 13px; font-weight: 600;
+            cursor: pointer; text-align: center;
+        }
+
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .stat-item {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 15px; border-radius: 10px; display: flex; align-items: center; gap: 10px;
+        }
+        .stat-icon { font-size: 18px; }
+        .stat-num { font-size: 14px; font-weight: bold; color: #00e5ff; }
+        .stat-txt { font-size: 11px; color: #94a3b8; }
+
+        /* SUBJECTS & GK LIST */
+        .section-box { padding: 20px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .section-title { font-size: 17px; font-weight: 700; color: #1e293b; }
+        .view-all { font-size: 12px; color: var(--primary); text-decoration: none; font-weight: 600; }
+
+        .exam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .exam-card {
+            background: white; border-radius: 16px; padding: 12px 5px; text-align: center;
+            cursor: pointer; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; transition: transform 0.2s;
+        }
+        .exam-card:active { transform: scale(0.95); }
+        .exam-icon-circle {
+            width: 42px; height: 42px; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; margin: 0 auto 8px auto; font-size: 18px;
+        }
+        .exam-card h4 { font-size: 12px; color: #1e293b; font-weight: 700; margin-bottom: 3px; }
+        .exam-card p { font-size: 10px; color: #64748b; }
+
+        /* PREMIUM PDF LIST STYLE FOR PYQ & NOTES */
+        .pdf-list-container { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
+        .pdf-row-item {
+            background: white; padding: 12px 15px; border-radius: 14px; display: flex;
+            justify-content: space-between; align-items: center; box-shadow: var(--card-shadow);
+            border: 1px solid #f1f5f9; text-decoration: none; transition: 0.2s;
+        }
+        .pdf-row-item:active { transform: scale(0.99); }
+        .pdf-left-info { display: flex; align-items: center; gap: 12px; }
+        .pdf-icon-badge { background: #fee2e2; color: #dc2626; width: 34px; height: 34px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; }
+        .pdf-details h6 { font-size: 13px; color: #1e293b; font-weight: 700; }
+        .pdf-details p { font-size: 10px; color: #64748b; margin-top: 1px; }
+        .pdf-action-btn { background: #e0f2fe; color: #0284c7; font-size: 11px; font-weight: bold; padding: 6px 12px; border-radius: 20px; }
+
+        .gk-list { display: flex; flex-direction: column; gap: 12px; }
+        .gk-item {
+            background: white; padding: 12px 15px; border-radius: 14px; display: flex;
+            align-items: center; gap: 15px; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; cursor: pointer;
+        }
+        .gk-icon-box { width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 18px; color: white; }
+        .gk-info h5 { font-size: 14px; color: #1e293b; font-weight: 700; margin-bottom: 2px; }
+        .gk-info p { font-size: 11px; color: #64748b; }
+
+        /* QUIZ SCREEN */
+        .quiz-navbar { background: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+        .back-btn { background: none; border: none; font-size: 15px; color: var(--primary); font-weight: bold; cursor: pointer; }
+        .quiz-body { padding: 25px 20px; }
+        .q-text { font-size: 18px; font-weight: 600; color: #1e293b; line-height: 1.5; margin-bottom: 25px; }
+        .opt-btn {
+            background: white; border: 1px solid #e2e8f0; width: 100%; padding: 15px; text-align: left;
+            border-radius: 12px; font-size: 14px; margin-bottom: 12px; cursor: pointer; font-weight: 500; color: #334155;
+        }
+        .result-screen { padding: 50px 20px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <div class="auth-overlay" id="authScreen">
+            
+            <div class="auth-card" id="registerCard">
+                <div class="auth-logo">Odisha<span>Exam Hub</span></div>
+                <div class="auth-subtitle">ନୂଆ ଆକାଉଣ୍ଟ ତିଆରି କରି ମାଗଣା ମକ ଟେଷ୍ଟ ଆରମ୍ଭ କରନ୍ତୁ 🚀</div>
+                
+                <div class="name-row">
+                    <div class="input-group">
+                        <label class="input-label">ପ୍ରଥମ ନାମ (First Name)</label>
+                        <input type="text" id="regFirst" class="auth-input" placeholder="ରାମ">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">ଶේଷ ନାମ (Last Name)</label>
+                        <input type="text" id="regLast" class="auth-input" placeholder="ନାୟକ">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">ମୋବାଇଲ୍ ନମ୍ବର / ଇମେଲ୍ ଆଇଡି</label>
+                    <input type="text" id="regContact" class="auth-input" placeholder="Example: 9876xxxxxx / user@email.com">
+                </div>
+                
+                <button class="auth-btn" onclick="sendOtp('register')">OTP ପଠାନ୍ତୁ ➜</button>
+                
+                <div class="switch-text">ପୂର୍ବରୁ ଆକାଉଣ୍ଟ ଅଛି? <span onclick="toggleAuth('login')">Login କରନ୍ତୁ</span></div>
+            </div>
+
+            <div class="auth-card" id="loginCard" style="display: none;">
+                <div class="auth-logo">Odisha<span>Exam Hub</span></div>
+                <div class="auth-subtitle">ଆପଣଙ୍କ ଆକାଉଣ୍ଟରେ Login କରନ୍ତୁ 🎯</div>
+                
+                <div class="input-group">
+                    <label class="input-label">ମୋବାଇଲ୍ ନମ୍ବର / ଇମେଲ୍ ଆଇଡି</label>
+                    <input type="text" id="loginContact" class="auth-input" placeholder="Example: 9876xxxxxx">
+                </div>
+                
+                <button class="auth-btn" onclick="sendOtp('login')">OTP ପଠାନ୍ତୁ ➜</button>
+                
+                <div class="switch-text">ନୂଆ ଛାତ୍ର ଅଟନ୍ତି? <span onclick="toggleAuth('register')">Register କରନ୍ତୁ</span></div>
+            </div>
+
+            <div class="auth-card otp-box" id="otpBox">
+                <h4 style="color: #1e293b; margin-bottom: 5px;">Verification Code</h4>
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 15px;">ଆପଣଙ୍କ ନମ୍ବରକୁ ଯାଇଥିବା ୪ ଅଙ୍କ ବିଶିଷ୍ଟ OTP ଦିଅନ୍ତୁ (Demo: 1234)</p>
+                
+                <div class="input-group" style="max-width: 160px; margin: 0 auto 15px auto;">
+                    <input type="text" id="otpInput" class="auth-input" placeholder="XXXX" style="text-align: center; font-size: 20px; letter-spacing: 5px;" maxlength="4">
+                </div>
+                
+                <button class="auth-btn" onclick="verifyOtp()">Verify & Open App 🔓</button>
+            </div>
+
+        </div>
+        
+        <div id="mainAppContent" class="app-blur">
+            
+            <div id="homeView">
+                <div class="hero-banner">
+                    <div class="top-nav">
+                        <div class="logo">Odisha<span>Exam Hub</span></div>
+                        <div class="user-badge" onclick="logoutApp()" style="cursor:pointer;">Logout 🚪</div>
+                    </div>
+
+                    <div class="profile-container">
+                        <div class="profile-pic-box">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" id="userProfileImage" class="profile-img" alt="User Profile">
+                            <label for="profileUploadInput" class="upload-icon-btn">+</label>
+                            <input type="file" id="profileUploadInput" accept="image/*" onchange="handleProfilePhoto(event)" style="display:none;">
+                        </div>
+                        <div class="profile-details">
+                            <h4 id="userDisplay">Student Name</h4>
+                            <p>ଆକ୍ଟିଭ୍ ୟୁଜର୍ 🌟</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-tag">• ଓଡ଼ିଶାର ସମସ୍ତ ପରୀକ୍ଷା ପାଇଁ</div>
+                    <div class="hero-title">ସଠିକ ପ୍ରସ୍ତୁତି<br>ସଠିକ ସଫଳତା 🎯</div>
+                    <div class="hero-sub">ଓଡ଼ିଶା ସରକାରୀ ପରୀକ୍ଷା ପାଇଁ ସର୍ବଶ୍ରେଷ୍ଠ ପ୍ରସ୍ତୁତି ପ୍ଲାଟଫର୍ମ।</div>
+                    
+                    <div class="banner-buttons">
+                        <button class="btn-main" onclick="joinStudentAutomatically(); startQuizSection('GS')">ମାଗଣାରେ ଯୋଗଦିଅ ➜</button>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon">👥</div>
+                            <div>
+                                <div class="stat-num" id="studentCounter">1</div>
+                                <div class="stat-txt">ଛାତ୍ରଛାତ୍ରୀ ଯୋଡ଼ି ହେଲେଣି</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">📝</div>
+                            <div>
+                                <div class="stat-num">3,250+</div>
+                                <div class="stat-txt">ମୋଟ ମକ ଟେଷ୍ଟ ଗୁଡ଼ିକ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-box">
+                    <div class="section-header">
+                        <div class="section-title">📜 ଗତ ବର୍ଷର ପ୍ରଶ୍ନପତ୍ର (PYQ Papers)</div>
+                        <a href="#" class="view-all">ସମଗ୍ର ଦେଖନ୍ତୁ ➜</a>
+                    </div>
+                    <div class="pdf-list-container">
+                        <a href="#" target="_blank" class="pdf-row-item">
+                            <div class="pdf-left-info">
+                                <div class="pdf-icon-badge">PDF</div>
+                                <div class="pdf-details"><h6>OSSSC Forest Guard 2024 Paper</h6><p>Size: 2.4 MB • Official</p></div>
+                            </div>
+                            <div class="pdf-action-btn">Open</div>
+                        </a>
+                        <a href="#" target="_blank" class="pdf-row-item">
+                            <div class="pdf-left-info">
+                                <div class="pdf-icon-badge">PDF</div>
+                                <div class="pdf-details"><h6>OSSSC Forest Guard 2021 Paper</h6><p>Size: 1.8 MB • Solution</p></div>
+                            </div>
+                            <div class="pdf-action-btn">Open</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="section-box" style="padding-top: 0;">
+                    <div class="section-header">
+                        <div class="section-title">📚 ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ଷ୍ଟଡି ନୋଟ୍ସ (Study Notes)</div>
+                        <a href="#" class="view-all">ସମଗ୍ର ଦେଖନ୍ତୁ ➜</a>
+                    </div>
+                    <div class="pdf-list-container">
+                        <a href="#" target="_blank" class="pdf-row-item">
+                            <div class="pdf-left-info">
+                                <div class="pdf-icon-badge" style="background:#e0f2fe; color:#0369a1;">DOC</div>
+                                <div class="pdf-details"><h6>Odia Grammar Complete Notes</h6><p>ସମ୍ପୂର୍ଣ୍ଣ ଓଡ଼ିଆ ବ୍ୟାକରଣ ନୋଟ୍ସ</p></div>
+                            </div>
+                            <div class="pdf-action-btn">Read</div>
+                        </a>
+                        <a href="#" target="_blank" class="pdf-row-item">
+                            <div class="pdf-left-info">
+                                <div class="pdf-icon-badge" style="background:#e0f2fe; color:#0369a1;">DOC</div>
+                                <div class="pdf-details"><h6>Computer Literacy MCQ Bank</h6><p>ସର୍ଟକଟ୍ କି' ଏବଂ MS Office MSQ</p></div>
+                            </div>
+                            <div class="pdf-action-btn">Read</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="section-box" style="padding-top: 0;">
+                    <div class="section-header">
+                        <div class="section-title">ପ୍ରମୁଖ ବିଷୟ ଗୁଡ଼ିକ (Subjects Quiz)</div>
+                        <a href="#" class="view-all">ସମଗ୍ର ଦେଖନ୍ତୁ ➜</a>
+                    </div>
+                    <div class="exam-grid">
+                        <div class="exam-card" onclick="startQuizSection('Odia')">
+                            <div class="exam-icon-circle" style="background: #fff7ed; color: #ea580c;">✍️</div>
+                            <h4>Odia</h4><p>୪୫୦ ଟେଷ୍ଟ</p>
+                        </div>
+                        <div class="exam-card" onclick="startQuizSection('English')">
+                            <div class="exam-icon-circle" style="background: #e0f2fe; color: #0284c7;">🔤</div>
+                            <h4>English</h4><p>୪୦୦ ଟେଷ୍ଟ</p>
+                        </div>
+                        <div class="exam-card" onclick="startQuizSection('Mathematics')">
+                            <div class="exam-icon-circle" style="background: #dcfce7; color: #16a34a;">📊</div>
+                            <h4>Math</h4><p>୫୫୦ ଟେଷ୍ଟ</p>
+                        </div>
+                        <div class="exam-card" onclick="startQuizSection('Computer')">
+                            <div class="exam-icon-circle" style="background: #f3e8ff; color: #9333ea;">💻</div>
+                            <h4>Computer</h4><p>୩୫୦ ଟେଷ୍ଟ</p>
+                        </div>
+                        <div class="exam-card" onclick="startQuizSection('GS')">
+                            <div class="exam-icon-circle" style="background: #fee2e2; color: #dc2626;">🌐</div>
+                            <h4>GS</h4><p>୬୦୦ ଟେଷ୍ଟ</p>
+                        </div>
+                        <div class="exam-card" onclick="startQuizSection('Odisha GK')">
+                            <div class="exam-icon-circle" style="background: #e0e7ff; color: #4f46e5;">👑</div>
+                            <h4>Odisha GK</h4><p>୫୦୦ ଟେଷ୍ଟ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-box" style="padding-top: 0;">
+                    <div class="section-header">
+                        <div class="section-title">👑 ଓଡ଼ିଶା ସ୍ପେଶାଲ୍ GK</div>
+                        <a href="#" class="view-all">ସମଗ୍ର ଦେଖନ୍ତୁ ➜</a>
+                    </div>
+                    <div class="gk-list">
+                        <div class="gk-item" onclick="startQuizSection('Geography')">
+                            <div class="gk-icon-box" style="background: #f59e0b;">🌍</div>
+                            <div class="gk-info"><h5>ଓଡ଼ିଶାର ଭୂଗୋଳ (Geography)</h5><p>୨୨୦ ଟି ମକ ଟେଷ୍ଟ</p></div>
+                        </div>
+                        <div class="gk-item" onclick="startQuizSection('History')">
+                            <div class="gk-icon-box" style="background: #06b6d4;">⏳</div>
+                            <div class="gk-info"><h5>ଓଡ଼ିଶାର ଇତିହାସ (History)</h5><p>୧୮୦ ଟି ମକ ଟେଷ୍ଟ</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quizView" style="display: none;">
+                <div class="quiz-navbar">
+                    <button class="back-btn" onclick="showHomeView()">◀ Back</button>
+                    <div class="section-title" id="quizTitle">Subject Quiz</div>
+                    <div style="font-weight: bold; color: var(--primary);">Score: <span id="liveScore">0</span></div>
+                </div>
+                <div class="quiz-body">
+                    <div class="q-text" id="qText">Loading...</div>
+                    <div id="optionsBox">
+                        <button class="opt-btn" onclick="selectOpt(0)">Option 1</button>
+                        <button class="opt-btn" onclick="selectOpt(1)">Option 2</button>
+                        <button class="opt-btn" onclick="selectOpt(2)">Option 3</button>
+                        <button class="opt-btn" onclick="selectOpt(3)">Option 4</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultView" style="display: none;" class="result-screen">
+                <h2 style="color: #16a34a; margin-bottom: 10px;">🎉 ମକ ଟେଷ୍ଟ ସମାପ୍ତ!</h2>
+                <h1 style="font-size: 50px; color: var(--primary); margin-bottom: 30px;"><span id="finalScore">0</span> / <span id="totalQ">0</span></h1>
+                <button class="btn-main" style="max-width: 220px; margin: 0 auto;" onclick="showHomeView()">ମୁଖ୍ୟ ପେଜ୍ କୁ ଫେରିବେ</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ଆପଣଙ୍କର ଗୁଗଲ୍ ସିଟ୍ Web App URL (Verified & Updated)
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbwcH0Ob_WhsHZCm0B8U2nQvuu8FL69ka0uIuDBADJ_8jQrbjp3xItna4dMPiwYoC-QVHg/exec";
+        
+        let tempUserDisplayName = "";
+        let authMode = "register";
+        let tempUserData = {};
+
+        // 🔒 Auto Login Check & Profile Photo Check
+        window.onload = function() {
+            let savedName = localStorage.getItem('hubUserRealName');
+            let savedPhoto = localStorage.getItem('hubUserProfilePic');
+            if (savedName) {
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('mainAppContent').classList.remove('app-blur');
+                document.getElementById('userDisplay').innerText = savedName;
+                if(savedPhoto) {
+                    document.getElementById('userProfileImage').src = savedPhoto;
+                }
+            }
+        };
+
+        // Profile Photo Upload & Save Locally
+        function handleProfilePhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Image = e.target.result;
+                    document.getElementById('userProfileImage').src = base64Image;
+                    localStorage.setItem('hubUserProfilePic', base64Image); // Browser ରେ ଫଟୋ ସେଭ୍ ରହିବ
+                    alert("📸 ପ୍ରୋଫାଇଲ୍ ଫଟୋ ସଫଳତାର ସହ ଅପଡେଟ୍ ହେଲା!");
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Switch between Login and Register View
+        function toggleAuth(mode) {
+            authMode = mode;
+            document.getElementById('otpBox').style.display = 'none';
+            if(mode === 'login') {
+                document.getElementById('registerCard').style.display = 'none';
+                document.getElementById('loginCard').style.display = 'block';
+            } else {
+                document.getElementById('registerCard').style.display = 'block';
+                document.getElementById('loginCard').style.display = 'none';
+            }
+        }
+
+        // Send OTP Action
+        function sendOtp(mode) {
+            if(mode === 'register') {
+                let first = document.getElementById('regFirst').value.trim();
+                let last = document.getElementById('regLast').value.trim();
+                let contact = document.getElementById('regContact').value.trim();
+                
+                if(first === "" || last === "" || contact === "") {
+                    alert("🎯 ଦୟାକରି ସବୁଯାକ ବକ୍ସ ପୂରଣ କରନ୍ତୁ!");
+                    return;
+                }
+                tempUserDisplayName = first + " " + last;
+                tempUserData = { firstName: first, lastName: last, contact: contact };
+            } else {
+                let contact = document.getElementById('loginContact').value.trim();
+                if(contact === "") {
+                    alert("🎯 ଦୟାକରି ଆପଣଙ୍କ ମୋବାଇଲ୍ ବା ଇମେଲ୍ ଦିଅନ୍ତୁ!");
+                    return;
+                }
+                tempUserDisplayName = contact.split('@')[0];
+                tempUserData = { firstName: tempUserDisplayName, lastName: "Student", contact: contact };
+            }
+
+            // Hide cards and show OTP inputs
+            document.getElementById('registerCard').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('otpBox').style.display = 'block';
+            alert("🔒 Verification OTP ପଠାଗଲା! (ଟେଷ୍ଟିଂ ପାଇଁ ୧୨୩୪ ବ୍ୟବହାର କରନ୍ତୁ)");
+        }
+
+        // Verify OTP & Open App & Send to Google Sheets
+        function verifyOtp() {
+            let otp = document.getElementById('otpInput').value.trim();
+            if(otp === "") {
+                alert("ଦୟାକରି OTP ନମ୍ବରଟି ଲେଖନ୍ତୁ!");
+                return;
+            }
+
+            if(otp === "1234") {
+                // Successfully authenticated
+                localStorage.setItem('hubUserRealName', tempUserDisplayName);
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('mainAppContent').classList.remove('app-blur');
+                document.getElementById('userDisplay').innerText = tempUserDisplayName;
+                
+                joinStudentAutomatically();
+
+                // Google Sheet କୁ Fetch API ମାଧ୍ୟମରେ ଡାଟା ପଠାଇବା
+                fetch(scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(tempUserData)
+                })
+                .then(() => console.log("Data successfully sent to Google Sheet"))
+                .catch(err => console.error("Error sending data:", err));
+                
+            } else {
+                alert("ভুল OTP! ଦୟାକରି 1234 ବ୍ୟବହାର କରନ୍ତୁ।");
+            }
+        }
+
+        // 👥 Student Counter
+        let totalStudents = localStorage.getItem('appStudentsCount');
+        if (!totalStudents) {
+            totalStudents = 458; 
+            localStorage.setItem('appStudentsCount', totalStudents);
+        }
+        document.getElementById('studentCounter').innerText = totalStudents;
+
+        function joinStudentAutomatically() {
+            totalStudents = parseInt(totalStudents) + 1;
+            localStorage.setItem('appStudentsCount', totalStudents);
+            document.getElementById('studentCounter').innerText = totalStudents;
+        }
+
+        // 🎯 Question Bank
+        const questionBank = {
+            Odia: [
+                { q: "କ୍ରିୟାର ମୂଳ ପିଣ୍ଡକୁ କଣ କୁହାଯାଏ?", o: ["ଧାତୁ", "କାରକ", "ବିଭକ୍ତି", "ଅବ୍ୟୟ"], c: 0 },
+                { q: "ଓଡ଼ିଆ ବ୍ୟାକରଣରେ ସ୍ୱରବର୍ଣ୍ଣର ସଂଖ୍ୟା କେତେ?", o: ["୧୦", "୧୧", "୧୩", "୩୯"], c: 1 }
+            ],
+            English: [{ q: "Identify the correctly spelt word:", o: ["Committee", "Comitee", "Commitie", "Commitee"], c: 0 }],
+            Mathematics: [{ q: "ଟଙ୍କାରେ ୫ଟି ଲେଖାଏଁ ଲେମ୍ବୁ କିଣି, ଟଙ୍କାରେ ୪ଟି ଲେଖାଏଁ ବିକ୍ରି କଲେ ଶତକଡ଼ା କେତେ ଲାଭ ହେବ?", o: ["10%", "20%", "25%", "30%"], c: 2 }],
+            Computer: [{ q: "Computer ରେ ସବୁ ଫାଇଲ୍ ବା ଟେକ୍ସଟ୍ କୁ ଏକାସଙ୍ଗେ Select କରିବା ପାଇଁ କେଉଁ Shortcut Key ବ୍ୟବହାର କରାଯାଏ?", o: ["Ctrl + S", "Ctrl + C", "Ctrl + A", "Ctrl + V"], c: 2 }],
+            GS: [{ q: "ହୀରାକୁଦ ବନ୍ଧ କେଉଁ ନଦୀ ଉପରେ ନିର୍ମିତ ହୋଇଛି?", o: ["ଗଙ୍ଗา", "ଗୋଦାବରୀ", "ମହାନଦୀ", "କୃଷ୍ଣା"], c: 2 }],
+            "Odisha GK": [{ q: "ଓଡ଼ିଶାର ପ୍ରଥମ ମୁଖ୍ୟମନ୍ତ୍ରୀ କିଏ ଥିଲେ?", o: ["ବିଜୁ ପଟ୍ଟନାୟକ", "ହରେକୃଷ୍ଣ ମହତାବ", "ନବକୃଷ୍ଣ ଚୌଧୁରୀ", "ମଧୁସୂଦନ ଦାସ"], c: 1 }],
+            Geography: [{ q: "ଓଡ଼ିଶାର ସବୁଠାରୁ ଉଚ୍ଚତମ ଗିରିଶୃଙ୍ଗର ନାମ କଣ?", o: ["ଗନ୍ଧମାର୍ଦ୍ଦନ", "ମହେନ୍ଦ୍ରଗିରି", "ଦେଓମାଳୀ", "ମଳୟଗିରି"], c: 2 }],
+            History: [{ q: "ପ୍ରସିଦ୍ଧ କଳିଙ୍ଗ ଯୁଦ୍ଧ କେଉଁ ଖ୍ରୀଷ୍ଟପୂର୍ବରେ ହୋଇଥିଲା?", o: ["ଖ୍ରୀ.ପୂ ୨६୧", "ଖ୍ରୀ.ପୂ ୩୨୬", "ଖ୍ରୀ.ପୂ ୫୭", "ଖ୍ରୀ.ପୂ ୭୮"], c: 0 }]
+        };
+
+        let activeQuestions = []; let qIndex = 0; let currentScore = 0;
+
+        function startQuizSection(category) {
+            activeQuestions = questionBank[category] || questionBank["GS"];
+            qIndex = 0; currentScore = 0;
+            document.getElementById('homeView').style.display = 'none';
+            document.getElementById('resultView').style.display = 'none';
+            document.getElementById('quizView').style.display = 'block';
+            document.getElementById('quizTitle').innerText = category;
+            document.getElementById('liveScore').innerText = currentScore;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (qIndex < activeQuestions.length) {
+                const current = activeQuestions[qIndex];
+                document.getElementById('qText').innerText = (qIndex + 1) + ". " + current.q;
+                const fabrics = document.querySelectorAll('.opt-btn');
+                fabrics.forEach((b, i) => {
+                    b.innerText = current.o[i];
+                    b.style.background = "white"; b.style.borderColor = "#e2e8f0";
+                    b.style.color = "#334155"; b.disabled = false;
+                });
+            } else {
+                document.getElementById('quizView').style.display = 'none';
+                document.getElementById('resultView').style.display = 'block';
+                document.getElementById('finalScore').innerText = currentScore;
+                document.getElementById('totalQ').innerText = activeQuestions.length;
+            }
+        }
+
+        function selectOpt(idx) {
+            const current = activeQuestions[qIndex];
+            const fabrics = document.querySelectorAll('.opt-btn');
+            fabrics.forEach(b => b.disabled = true);
+            if (idx === current.c) {
+                currentScore++; document.getElementById('liveScore').innerText = currentScore;
+                fabrics[idx].style.background = "#d1fae5"; fabrics[idx].style.borderColor = "#10b981";
+            } else {
+                fabrics[idx].style.background = "#fee2e2"; fabrics[idx].style.borderColor = "#ef4444";
+                fabrics[current.c].style.background = "#d1fae5"; fabrics[current.c].style.borderColor = "#10b981";
+            }
+            setTimeout(() => { qIndex++; showQuestion(); }, 1200);
+        }
+
+        function showHomeView() {
+            document.getElementById('quizView').style.display = 'none';
+            document.getElementById('resultView').style.display = 'none';
+            document.getElementById('homeView').style.display = 'block';
+        }
+
+        function logoutApp() {
+            localStorage.removeItem('hubUserRealName');
+            localStorage.removeItem('hubUserProfilePic');
+            document.getElementById('authScreen').style.display = 'flex';
+            document.getElementById('mainAppContent').classList.add('app-blur');
+            toggleAuth('login');
+        }
+    </script>
+</body>
+</html>
