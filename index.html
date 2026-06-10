@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="or">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odisha Exam Hub - ସଠିକ ପ୍ରସ୍ତୁତି ସଠିକ ସଫଳତା</title>
+    <title>Odisha Exam Hub</title>
     
     <style>
         :root {
@@ -45,7 +45,6 @@
             user-select: none;
         }
 
-        /* ----------------- AUTH OVERLAY ----------------- */
         .auth-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -130,7 +129,10 @@
             margin-top: 5px;
         }
 
-        .auth-btn:active { transform: scale(0.98); }
+        .auth-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
 
         .switch-text {
             font-size: 12px;
@@ -146,21 +148,12 @@
             text-decoration: underline;
         }
 
-        .otp-box {
-            display: none;
-            border-top: 1px dashed #e2e8f0;
-            margin-top: 15px;
-            padding-top: 15px;
-            text-align: center;
-        }
-
-        /* ----------------- MAIN APP SECTIONS ----------------- */
+        /* ----------------- APP SECTIONS ----------------- */
         .hero-banner {
             background: linear-gradient(135deg, #0b112c 0%, #151d4a 100%);
             color: white;
             padding: 30px 20px;
             text-align: left;
-            position: relative;
         }
 
         .top-nav {
@@ -180,6 +173,7 @@
             border-radius: 15px;
             font-size: 12px;
             font-weight: 600;
+            cursor: pointer;
         }
 
         .profile-container {
@@ -190,73 +184,29 @@
             background: rgba(255, 255, 255, 0.05);
             padding: 10px 15px;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .profile-pic-box { position: relative; width: 55px; height: 55px; }
         .profile-img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #00e5ff; object-fit: cover; background: #fff; }
-        .upload-icon-btn { position: absolute; bottom: -2px; right: -2px; background: #5c3be7; color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 12px; font-weight: bold; border: 1px solid white; }
         .profile-details h4 { font-size: 15px; font-weight: bold; color: white; }
         .profile-details p { font-size: 11px; color: #94a3b8; }
 
         .hero-tag { color: #f1b814; font-size: 13px; margin-bottom: 8px; font-weight: 600; }
         .hero-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 15px; color: #fff; }
-        .hero-sub { font-size: 12px; color: #94a3b8; margin-bottom: 25px; line-height: 1.5; }
-
-        .banner-buttons { display: flex; gap: 10px; margin-bottom: 25px; }
-        .btn-main {
-            background: var(--primary); color: white; border: none; flex: 1;
-            padding: 12px; border-radius: 25px; font-size: 13px; font-weight: 600;
-            cursor: pointer; text-align: center;
-        }
-
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .stat-item {
-            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 10px 15px; border-radius: 10px; display: flex; align-items: center; gap: 10px;
-        }
-        .stat-icon { font-size: 18px; }
-        .stat-num { font-size: 14px; font-weight: bold; color: #00e5ff; }
-        .stat-txt { font-size: 11px; color: #94a3b8; }
+        .hero-sub { font-size: 12px; color: #94a3b8; margin-bottom: 25px; }
 
         .section-box { padding: 20px; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .section-title { font-size: 17px; font-weight: 700; color: #1e293b; }
-        .view-all { font-size: 12px; color: var(--primary); text-decoration: none; font-weight: 600; }
+        .section-title { font-size: 17px; font-weight: 700; color: #1e293b; margin-bottom: 15px; }
 
         .exam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .exam-card {
             background: white; border-radius: 16px; padding: 12px 5px; text-align: center;
-            cursor: pointer; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; transition: transform 0.2s;
+            cursor: pointer; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9;
         }
-        .exam-card:active { transform: scale(0.95); }
         .exam-icon-circle {
             width: 42px; height: 42px; border-radius: 50%; display: flex;
             justify-content: center; align-items: center; margin: 0 auto 8px auto; font-size: 18px;
         }
-        .exam-card h4 { font-size: 12px; color: #1e293b; font-weight: 700; margin-bottom: 3px; }
+        .exam-card h4 { font-size: 12px; color: #1e293b; font-weight: 700; }
         .exam-card p { font-size: 10px; color: #64748b; }
-
-        .pdf-list-container { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
-        .pdf-row-item {
-            background: white; padding: 12px 15px; border-radius: 14px; display: flex;
-            justify-content: space-between; align-items: center; box-shadow: var(--card-shadow);
-            border: 1px solid #f1f5f9; text-decoration: none; transition: 0.2s;
-        }
-        .pdf-row-item:active { transform: scale(0.99); }
-        .pdf-left-info { display: flex; align-items: center; gap: 12px; }
-        .pdf-icon-badge { background: #fee2e2; color: #dc2626; width: 34px; height: 34px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; }
-        .pdf-details h6 { font-size: 13px; color: #1e293b; font-weight: 700; }
-        .pdf-details p { font-size: 10px; color: #64748b; margin-top: 1px; }
-        .pdf-action-btn { background: #e0f2fe; color: #0284c7; font-size: 11px; font-weight: bold; padding: 6px 12px; border-radius: 20px; }
-
-        .gk-list { display: flex; flex-direction: column; gap: 12px; }
-        .gk-item {
-            background: white; padding: 12px 15px; border-radius: 14px; display: flex;
-            align-items: center; gap: 15px; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; cursor: pointer;
-        }
-        .gk-icon-box { width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 18px; color: white; }
-        .gk-info h5 { font-size: 14px; color: #1e293b; font-weight: 700; margin-bottom: 2px; }
-        .gk-info p { font-size: 11px; color: #64748b; }
 
         .quiz-navbar { background: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
         .back-btn { background: none; border: none; font-size: 15px; color: var(--primary); font-weight: bold; cursor: pointer; }
@@ -264,7 +214,7 @@
         .q-text { font-size: 18px; font-weight: 600; color: #1e293b; line-height: 1.5; margin-bottom: 25px; }
         .opt-btn {
             background: white; border: 1px solid #e2e8f0; width: 100%; padding: 15px; text-align: left;
-            border-radius: 12px; font-size: 14px; margin-bottom: 12px; cursor: pointer; font-weight: 500; color: #334155;
+            border-radius: 12px; font-size: 14px; margin-bottom: 12px; cursor: pointer;
         }
         .result-screen { padding: 50px 20px; text-align: center; }
     </style>
@@ -277,52 +227,59 @@
             
             <div class="auth-card" id="registerCard">
                 <div class="auth-logo">Odisha<span>Exam Hub</span></div>
-                <div class="auth-subtitle">ନୂଆ ଆକାଉଣ୍ଟ ତିଆରି କରି ମାଗଣା ମକ ଟେଷ୍ଟ ଆରମ୍ଭ କରନ୍ତୁ 🚀</div>
+                <div class="auth-subtitle">Create account to start your free mock test 🚀</div>
                 
-                <div class="name-row">
-                    <div class="input-group">
-                        <label class="input-label">ପ୍ରଥମ ନାମ (First Name)</label>
-                        <input type="text" id="regFirst" class="auth-input" placeholder="ରାମ">
+                <div id="regInputs">
+                    <div class="name-row">
+                        <div class="input-group">
+                            <label class="input-label">First Name</label>
+                            <input type="text" id="regFirst" class="auth-input" placeholder="Ram">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Last Name</label>
+                            <input type="text" id="regLast" class="auth-input" placeholder="Naik">
+                        </div>
                     </div>
+                    
                     <div class="input-group">
-                        <label class="input-label">ଶେଷ ନାମ (Last Name)</label>
-                        <input type="text" id="regLast" class="auth-input" placeholder="ନାୟକ">
+                        <label class="input-label">Email ID</label>
+                        <input type="email" id="regContact" class="auth-input" placeholder="user@email.com">
                     </div>
+                    <button class="auth-btn" id="sendOtpBtn" onclick="requestOTP()">Send OTP ➜</button>
+                </div>
+
+                <div id="otpVerifyBox" style="display: none; margin-top: 15px;">
+                    <div class="input-group">
+                        <label class="input-label" style="color: #16a34a; font-weight: bold;">Enter 6-Digit OTP sent to Email</label>
+                        <input type="number" id="otpInput" class="auth-input" placeholder="000000">
+                    </div>
+                    <button class="auth-btn" style="background: #16a34a;" onclick="verifyAndSaveUser()">Verify & Open App ➜</button>
                 </div>
                 
-                <div class="input-group">
-                    <label class="input-label">ଇମେଲ୍ ଆଇଡି (OTP ପାଇଁ)</label>
-                    <input type="email" id="regContact" class="auth-input" placeholder="Example: user@email.com">
-                </div>
-                
-                <button class="auth-btn" onclick="sendOtp('register')">OTP ପଠାନ୍ତୁ ➜</button>
-                
-                <div class="switch-text">ପୂର୍ବରୁ ଆକାଉଣ୍ଟ ଅଛି? <span onclick="toggleAuth('login')">Login କରନ୍ତୁ</span></div>
+                <div class="switch-text">Already have an account? <span onclick="toggleAuth('login')">Login</span></div>
             </div>
 
             <div class="auth-card" id="loginCard" style="display: none;">
                 <div class="auth-logo">Odisha<span>Exam Hub</span></div>
-                <div class="auth-subtitle">ଆପଣଙ୍କ ଆକାଉଣ୍ଟରେ Login କରନ୍ତୁ 🎯</div>
+                <div class="auth-subtitle">Log in to your account 🎯</div>
                 
-                <div class="input-group">
-                    <label class="input-label">ଇମେଲ୍ ଆଇଡି</label>
-                    <input type="email" id="loginContact" class="auth-input" placeholder="Example: user@email.com">
+                <div id="loginInputs">
+                    <div class="input-group">
+                        <label class="input-label">Email ID</label>
+                        <input type="email" id="loginContact" class="auth-input" placeholder="user@email.com">
+                    </div>
+                    <button class="auth-btn" id="loginOtpBtn" onclick="requestLoginOTP()">Send Login OTP ➜</button>
                 </div>
-                
-                <button class="auth-btn" onclick="sendOtp('login')">OTP ପଠାନ୍ତୁ ➜</button>
-                
-                <div class="switch-text">ନୂଆ ଛାତ୍ର ଅଟନ୍ତି? <span onclick="toggleAuth('register')">Register କରନ୍ତୁ</span></div>
-            </div>
 
-            <div class="auth-card otp-box" id="otpBox">
-                <h4 style="color: #1e293b; margin-bottom: 5px;">Verification Code</h4>
-                <p style="font-size: 12px; color: #64748b; margin-bottom: 15px;">ଆପଣଙ୍କ ଇମେଲ୍‌କୁ ଯାଇଥିବା ୪ ଅଙ୍କ ବିଶିଷ୍ଟ OTP ଦିଅନ୍ତୁ</p>
-                
-                <div class="input-group" style="max-width: 160px; margin: 0 auto 15px auto;">
-                    <input type="text" id="otpInput" class="auth-input" placeholder="XXXX" style="text-align: center; font-size: 20px; letter-spacing: 5px;" maxlength="4">
+                <div id="loginOtpVerifyBox" style="display: none; margin-top: 15px;">
+                    <div class="input-group">
+                        <label class="input-label" style="color: #16a34a; font-weight: bold;">Enter OTP</label>
+                        <input type="number" id="loginOtpInput" class="auth-input" placeholder="000000">
+                    </div>
+                    <button class="auth-btn" style="background: #16a34a;" onclick="verifyLogin()">Verify & Login ➜</button>
                 </div>
                 
-                <button class="auth-btn" onclick="verifyOtp()">Verify & Open App 🔓</button>
+                <div class="switch-text">New student? <span onclick="toggleAuth('register')">Register</span></div>
             </div>
 
         </div>
@@ -333,111 +290,197 @@
                 <div class="hero-banner">
                     <div class="top-nav">
                         <div class="logo">Odisha<span>Exam Hub</span></div>
-                        <div class="user-badge" onclick="logoutApp()" style="cursor:pointer;">Logout 🚪</div>
+                        <div class="user-badge" onclick="logoutApp()">Logout 🚪</div>
                     </div>
 
                     <div class="profile-container">
-                        <div class="profile-pic-box">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" id="userProfileImage" class="profile-img" alt="User Profile">
-                            <label for="profileUploadInput" class="upload-icon-btn">+</label>
-                            <input type="file" id="profileUploadInput" accept="image/*" onchange="handleProfilePhoto(event)" style="display:none;">
-                        </div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-img" alt="User">
                         <div class="profile-details">
                             <h4 id="userDisplay">Student Name</h4>
-                            <p>ଆକ୍ଟିଭ୍ ୟୁଜର୍ 🌟</p>
+                            <p>Active Verified User 🌟</p>
                         </div>
                     </div>
 
-                    <div class="hero-tag">• ଓଡ଼ିଶାର ସମସ୍ତ ପରୀକ୍ଷା ପାଇଁ</div>
-                    <div class="hero-title">ସଠିକ ପ୍ରସ୍ତୁତି<br>ସଠିକ ସଫଳତା 🎯</div>
-                    <div class="hero-sub">ଓଡ଼ିଶା ସରକାରୀ ପରୀକ୍ଷା ପାଇଁ ସର୍ବଶ୍ରେଷ୍ଠ ପ୍ରସ୍ତୁତି ପ୍ଲାଟଫର୍ମ।</div>
-                    
-                    <div class="banner-buttons">
-                        <button class="btn-main" onclick="joinStudentAutomatically(); startQuizSection('GS')">ମାଗଣାରେ ଯୋଗଦିଅ ➜</button>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-icon">👥</div>
-                            <div>
-                                <div class="stat-num" id="studentCounter">1</div>
-                                <div class="stat-txt">ଛାତ୍ରଛାତ୍ରୀ ଯୋଡ଼ି ହେଲେଣି</div>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-icon">📝</div>
-                            <div>
-                                <div class="stat-num">3,250+</div>
-                                <div class="stat-txt">ମୋଟ ମକ ଟେଷ୍ଟ ଗୁଡ଼ିକ</div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="hero-tag">• For All Odisha Competitive Exams</div>
+                    <div class="hero-title">Prepare Smart<br>Achieve Success 🎯</div>
+                    <div class="hero-sub">Best mock test platform for Forest Guard & OSSSC Exams.</div>
                 </div>
 
                 <div class="section-box">
-                    <div class="section-header">
-                        <div class="section-title">📜 ଗତ ବର୍ଷର ପ୍ରଶ୍ନପତ୍ର (PYQ Papers)</div>
-                        <a href="#" class="view-all">ସମଗ୍ର ଦେଖନ୍ତୁ ➜</a>
-                    </div>
-                    <div class="pdf-list-container">
-                        <a href="#" target="_blank" class="pdf-row-item">
-                            <div class="pdf-left-info">
-                                <div class="pdf-icon-badge">PDF</div>
-                                <div class="pdf-details"><h6>OSSSC Forest Guard 2024 Paper</h6><p>Size: 2.4 MB • Official</p></div>
-                            </div>
-                            <div class="pdf-action-btn">Open</div>
-                        </a>
-                        <a href="#" target="_blank" class="pdf-row-item">
-                            <div class="pdf-left-info">
-                                <div class="pdf-icon-badge">PDF</div>
-                                <div class="pdf-details"><h6>OSSSC Forest Guard 2021 Paper</h6><p>Size: 1.8 MB • Solution</p></div>
-                            </div>
-                            <div class="pdf-action-btn">Open</div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="section-box" style="padding-top: 0;">
-                    <div class="section-header">
-                        <div class="section-title">📚 ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ଷ୍ଟଡି ନୋଟ୍ସ (Study Notes)</div>
-                        <a href="#" class="view-all">ସମଗ୍ର ଦେଖନ୍ତୁ ➜</a>
-                    </div>
-                    <div class="pdf-list-container">
-                        <a href="#" target="_blank" class="pdf-row-item">
-                            <div class="pdf-left-info">
-                                <div class="pdf-icon-badge" style="background:#e0f2fe; color:#0369a1;">DOC</div>
-                                <div class="pdf-details"><h6>Odia Grammar Complete Notes</h6><p>ସମ୍ପୂର୍ଣ୍ଣ ଓଡ଼ିଆ ବ୍ୟାକରଣ ନୋଟ୍ସ</p></div>
-                            </div>
-                            <div class="pdf-action-btn">Read</div>
-                        </a>
-                        <a href="#" target="_blank" class="pdf-row-item">
-                            <div class="pdf-left-info">
-                                <div class="pdf-icon-badge" style="background:#e0f2fe; color:#0369a1;">DOC</div>
-                                <div class="pdf-details"><h6>Computer Literacy MCQ Bank</h6><p>ସର୍ଟକଟ୍ କି' ଏବଂ MS Office MSQ</p></div>
-                            </div>
-                            <div class="pdf-action-btn">Read</div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="section-box" style="padding-top: 0;">
-                    <div class="section-header">
-                        <div class="section-title">ପ୍ରମୁଖ ବିଷୟ ଗୁଡ଼ିକ (Subjects Quiz)</div>
-                        <a href="#" class="view-all">ସମଗ୍ର ଦେଖନ୍ତୁ ➜</a>
-                    </div>
+                    <div class="section-title">Select Subject for Quiz</div>
                     <div class="exam-grid">
                         <div class="exam-card" onclick="startQuizSection('Odia')">
                             <div class="exam-icon-circle" style="background: #fff7ed; color: #ea580c;">✍️</div>
-                            <h4>Odia</h4><p>୪୫୦ ଟେଷ୍ଟ</p>
+                            <h4>Odia</h4><p>450 Tests</p>
                         </div>
                         <div class="exam-card" onclick="startQuizSection('English')">
                             <div class="exam-icon-circle" style="background: #e0f2fe; color: #0284c7;">🔤</div>
-                            <h4>English</h4><p>୪୦୦ ଟେଷ୍ଟ</p>
+                            <h4>English</h4><p>400 Tests</p>
                         </div>
                         <div class="exam-card" onclick="startQuizSection('Mathematics')">
                             <div class="exam-icon-circle" style="background: #dcfce7; color: #16a34a;">📊</div>
-                            <h4>Math</h4><p>୫୫୦ ଟେଷ୍ଟ</p>
+                            <h4>Math</h4><p>550 Tests</p>
                         </div>
                         <div class="exam-card" onclick="startQuizSection('Computer')">
                             <div class="exam-icon-circle" style="background: #f3e8ff; color: #9333ea;">💻</div>
-                            <h4>Computer</h4><p>୩୩
+                            <h4>Computer</h4><p>330 Tests</p>
+                        </div>
+                        <div class="exam-card" onclick="startQuizSection('GS')">
+                            <div class="exam-icon-circle" style="background: #fee2e2; color: #dc2626;">🌐</div>
+                            <h4>GS</h4><p>600 Tests</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quizView" style="display: none;">
+                <div class="quiz-navbar">
+                    <button class="back-btn" onclick="showHomeView()">◀ Back</button>
+                    <div class="section-title" id="quizTitle">Quiz</div>
+                    <div style="font-weight: bold; color: var(--primary);">Score: <span id="liveScore">0</span></div>
+                </div>
+                <div class="quiz-body">
+                    <div class="q-text" id="qText">Loading Question...</div>
+                    <div id="optionsBox">
+                        <button class="opt-btn" onclick="selectOpt(0)">Option 1</button>
+                        <button class="opt-btn" onclick="selectOpt(1)">Option 2</button>
+                        <button class="opt-btn" onclick="selectOpt(2)">Option 3</button>
+                        <button class="opt-btn" onclick="selectOpt(3)">Option 4</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultView" style="display: none;" class="result-screen">
+                <h2 style="color: #16a34a; margin-bottom: 10px;">🎉 Quiz Completed!</h2>
+                <h1 style="font-size: 50px; color: var(--primary); margin-bottom: 30px;"><span id="finalScore">0</span> / <span id="totalQ">0</span></h1>
+                <button class="auth-btn" style="max-width: 220px; margin: 0 auto;" onclick="showHomeView()">Go To Home</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ PASTE YOUR GOOGLE WEB APP URL HERE
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbw04x1uH-hBv59xU-E_MvTepu7Fm-0UjYq_X0w8D7m/exec"; 
+        
+        let generatedOTP = "";
+        let tempUserData = {};
+
+        window.onload = function() {
+            let savedName = localStorage.getItem('hubUserRealName');
+            if (savedName) {
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('mainAppContent').classList.remove('app-blur');
+                document.getElementById('userDisplay').innerText = savedName;
+            }
+        };
+
+        function toggleAuth(mode) {
+            if(mode === 'login') {
+                document.getElementById('registerCard').style.display = 'none';
+                document.getElementById('loginCard').style.display = 'block';
+            } else {
+                document.getElementById('registerCard').style.display = 'block';
+                document.getElementById('loginCard').style.display = 'none';
+            }
+        }
+
+        // REQUEST OTP FOR REGISTRATION
+        function requestOTP() {
+            let first = document.getElementById('regFirst').value.trim();
+            let last = document.getElementById('regLast').value.trim();
+            let contact = document.getElementById('regContact').value.trim();
+
+            if(first === "" || last === "" || contact === "") {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            document.getElementById('sendOtpBtn').innerText = "Sending OTP...";
+            document.getElementById('sendOtpBtn').disabled = true;
+
+            tempUserData = { action: "sendOTP", firstName: first, lastName: last, contact: contact };
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                body: JSON.stringify(tempUserData)
+            })
+            .then(res => res.json())
+            .then(response => {
+                if(response.status === "OTP_SENT") {
+                    generatedOTP = response.otp;
+                    alert("🎯 OTP Sent Successfully to your Email!");
+                    document.getElementById('otpVerifyBox').style.display = 'block';
+                    document.getElementById('sendOtpBtn').innerText = "OTP Sent";
+                } else {
+                    alert("Error sending OTP. Check Daily Limit.");
+                    document.getElementById('sendOtpBtn').innerText = "Send OTP ➜";
+                    document.getElementById('sendOtpBtn').disabled = false;
+                }
+            })
+            .catch(err => {
+                alert("Connection Error. Check Script URL Deployment.");
+                document.getElementById('sendOtpBtn').innerText = "Send OTP ➜";
+                document.getElementById('sendOtpBtn').disabled = false;
+            });
+        }
+
+        // VERIFY OTP AND SAVE USER TO SHEET
+        function verifyAndSaveUser() {
+            let enteredOtp = document.getElementById('otpInput').value.trim();
+            if(enteredOtp === "") {
+                alert("Please enter the OTP!");
+                return;
+            }
+
+            if(enteredOtp === generatedOTP) {
+                // Change action to save data
+                tempUserData.action = "saveUser";
+
+                fetch(scriptUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(tempUserData)
+                })
+                .then(res => res.json())
+                .then(response => {
+                    if(response.status === "SUCCESS") {
+                        let fullName = tempUserData.firstName + " " + tempUserData.lastName;
+                        localStorage.setItem('hubUserRealName', fullName);
+                        
+                        alert("🎉 Registration Successful!");
+                        document.getElementById('authScreen').style.display = 'none';
+                        document.getElementById('mainAppContent').classList.remove('app-blur');
+                        document.getElementById('userDisplay').innerText = fullName;
+                    }
+                });
+            } else {
+                alert("❌ Wrong OTP! Please try again.");
+            }
+        }
+
+        // LOGIN OTP REQUEST
+        function requestLoginOTP() {
+            let contact = document.getElementById('loginContact').value.trim();
+            if(contact === "") { alert("Enter registered email!"); return; }
+
+            document.getElementById('loginOtpBtn').innerText = "Sending...";
+            
+            let loginData = { action: "sendOTP", contact: contact };
+            fetch(scriptUrl, { method: 'POST', body: JSON.stringify(loginData) })
+            .then(res => res.json())
+            .then(response => {
+                if(response.status === "OTP_SENT") {
+                    generatedOTP = response.otp;
+                    tempUserData.firstName = contact.split('@')[0];
+                    tempUserData.lastName = "User";
+                    alert("🎯 OTP Sent!");
+                    document.getElementById('loginOtpVerifyBox').style.display = 'block';
+                }
+            });
+        }
+
+        function verifyLogin() {
+            let enteredOtp = document.getElementById('loginOtpInput').value.trim();
+            if(enteredOtp === generatedOTP) {
+                localStorage.setItem('hubUserRealName', tempUserData.firstName);
+                document.getElementById
